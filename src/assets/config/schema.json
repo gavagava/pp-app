@@ -1,0 +1,24 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://pp/app/config/config.json",
+    "title": "Prognoz Platfrom Application Configuration Schema",
+    "type": "object",
+    "properties": {
+        "serviceUrl": {
+            "description": "URL BI-сервисов, с которыми приложение будет осуществлять работу",
+            "type": "string",
+            "minLength": 1
+        },
+        "defaultMetabaseId": {
+            "description": "Идентификатор метабазы, которая будет открываться по-умолчанию",
+            "type": "string"
+        },
+        "checkStatusInterval": {
+            "description": "Интервал отправки запроса проверки состояния сессии. Указывается в милисекундах",
+            "type": "number"
+        }
+    },
+    "required": [
+        "serviceUrl"
+    ]
+}

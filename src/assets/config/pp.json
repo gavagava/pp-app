@@ -1,0 +1,4 @@
+{
+    "$schema": "./schema.json",
+    "serviceUrl": "http://pp/dev8/axis2/services/PP.SOM.Som"
+}
