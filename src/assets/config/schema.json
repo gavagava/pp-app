@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "http://pp/app/config/config.json",
+    "$id": "http://pp/app/config/pp.json",
     "title": "Prognoz Platfrom Application Configuration Schema",
     "type": "object",
     "properties": {
