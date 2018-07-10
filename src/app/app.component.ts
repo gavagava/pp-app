@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
+import { APP_CONFIG, IAppConfig } from './config/app.config';
 
 @Component({
   selector: 'pp-root',
@@ -7,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'pp';
+
+  constructor (@Inject(APP_CONFIG) private config: IAppConfig) {
+    console.log(JSON.stringify(config));
+  }
 }
