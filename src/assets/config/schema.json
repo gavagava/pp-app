@@ -16,6 +16,27 @@
         "checkStatusInterval": {
             "description": "Интервал отправки запроса проверки состояния сессии. Указывается в милисекундах",
             "type": "number"
+        },
+        "defaultLocale": {
+          "description": "Локаль по-умолчанию для приложения",
+          "type": "string"
+        },
+        "pdfReaderUrl": {
+          "description": "Ссылка, по которой пользователю будет предложено загрузить просмотрщик pdf-докуметов, если браузер не поддерживает их отображения",
+          "type": "string"
+        },
+        "ieUpdateUrl": {
+          "description": "Ссылка, по которой пользователю будет предложено обновить старую версию IE",
+          "type": "string"
+        },
+        "helpUrl": {
+          "description": "Ссылка на центр помощи пользователю",
+          "type": "string"
+        },
+        "storagePrefix": {
+          "description": "Префикс для ключей, используемых для хранения значений приложения в localstorage и sessionStorage браузера",
+          "type": "string",
+          "minLength": 1
         }
     },
     "required": [
