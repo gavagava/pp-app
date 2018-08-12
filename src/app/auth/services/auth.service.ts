@@ -1,16 +1,16 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { APP_CONFIG, IAppConfig } from '../config/app.config';
+import { APP_CONFIG, IAppConfig } from '../../config/app.config';
 import { Observable, BehaviorSubject } from 'rxjs';
 import * as lcid from 'lcid';
 
-import { Session } from './model/session.model';
-import { StorageService } from '../shared/storage.service';
-import { OpenMetabase, OpenMetabaseResult } from '../som/som';
-import { User } from './model/user.model';
+import { Session } from '../models/session.model';
+import { StorageService } from '../../shared/storage.service';
+import { OpenMetabase, OpenMetabaseResult } from '../../som/som';
+import { User } from '../models/user.model';
 
 @Injectable()
-export class SessionStore {
+export class AuthService {
 
   private sessionSource: BehaviorSubject<Session> = new BehaviorSubject(new Session());
 

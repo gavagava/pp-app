@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '../../../node_modules/@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { APP_CONFIG, IAppConfig } from '../config/app.config';
 import { BatchExecResult } from '../som/som';
 

@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { APP_CONFIG, IAppConfig } from '../config/app.config';
+import { APP_CONFIG, IAppConfig } from '../../config/app.config';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
