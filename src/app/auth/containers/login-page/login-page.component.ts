@@ -7,7 +7,8 @@ import { PasswordAuthenticate } from '../../models/authenticate';
 
 @Component({
   selector: 'pp-login-page',
-  templateUrl: 'login-page.template.html'
+  templateUrl: './login-page.template.html',
+  styleUrls: ['./login-page.scss']
 })
 export class LoginPageComponent implements OnInit {
 

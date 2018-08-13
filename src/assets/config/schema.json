@@ -21,6 +21,13 @@
           "description": "Локаль по-умолчанию для приложения",
           "type": "string"
         },
+        "localesList": {
+          "description": "Список локалей доступных в приложении. Локали указываются в формате IETF, см. https://en.wikipedia.org/wiki/IETF_language_tag",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "pdfReaderUrl": {
           "description": "Ссылка, по которой пользователю будет предложено загрузить просмотрщик pdf-докуметов, если браузер не поддерживает их отображения",
           "type": "string"

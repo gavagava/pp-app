@@ -1,4 +1,4 @@
-import { enableProdMode } from '@angular/core';
+import { enableProdMode, InjectionToken } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
@@ -6,6 +6,8 @@ import { environment } from './environments/environment';
 import { APP_CONFIG, APP_DEFAULT_CONFIG } from './app/config/app.config';
 import axios from 'axios';
 import * as _ from 'lodash';
+
+const APP_VERSION = new InjectionToken('app.version');
 
 axios.get('assets/config/pp.json', {
   timeout: 2000,
@@ -23,6 +25,10 @@ axios.get('assets/config/pp.json', {
     {
       provide: APP_CONFIG,
       useValue: config
+    },
+    {
+      provide: APP_VERSION,
+      useValue: environment.version
     }
   ]).bootstrapModule(AppModule)
     .catch(err => console.log(err));
