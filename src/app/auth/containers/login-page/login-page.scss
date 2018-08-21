@@ -1,0 +1,32 @@
+@import 'logo';
+
+.pp-login-page {
+  width: 100%;
+  height: 100%;
+  display: table;
+}
+
+.pp-login-page__main {
+  display: table-row;
+}
+
+.pp-login-page__footer {
+  display: table-row;
+  height: 100px;
+}
+
+.pp-login-page__logo {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.pp-login-page__form {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.pp-login-page__switch {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}

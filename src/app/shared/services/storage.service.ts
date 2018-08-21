@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@angular/core';
-import { APP_CONFIG, IAppConfig } from '../config/app.config';
+import { APP_CONFIG, IAppConfig } from '../../config/app.config';
 import * as lz from 'lz-string';
 import { isString } from 'lodash';
 

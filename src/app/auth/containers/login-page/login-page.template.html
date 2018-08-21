@@ -1,4 +1,14 @@
-
-<pp-login-form
-  (submitted)="onSubmit($event)">
-</pp-login-form>
+<div class="pp-login-page">
+  <div class="pp-login-page__main">
+    <div class="pp-logo pp-login-page__logo">
+      <div class="pp-logo__image"></div>
+      <div class="pp-logo__version">{{version}}</div>
+    </div>
+    <pp-login-form class="pp-login-page__form"
+      (submitted)="onSubmit($event)">
+    </pp-login-form>
+  </div>
+  <div class="pp-login-page__footer">
+    <pp-locales-switch class="pp-login-page__switch"></pp-locales-switch>
+  </div>
+</div>

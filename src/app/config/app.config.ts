@@ -5,7 +5,8 @@ export interface IAppConfig {
   defaultMetabaseId: string;
   storagePrefix: string;
   checkStatusInterval: number;
-  defaultLocale: string;
+  defaultLocale?: string;
+  localesList?: string[];
   pdfReaderUrl: string;
   ieUpdateUrl: string;
   helpUrl: string;
@@ -18,7 +19,6 @@ export const APP_DEFAULT_CONFIG: IAppConfig = {
   defaultMetabaseId: 'systest',
   storagePrefix: 'pp',
   checkStatusInterval: 60000,
-  defaultLocale: 'ru',
   pdfReaderUrl: 'http://get.adobe.com/reader/',
   ieUpdateUrl: 'https://support.microsoft.com/en-us/help/18520/download-internet-explorer-11-offline-installer',
   helpUrl: 'http://help.fsight.ru'

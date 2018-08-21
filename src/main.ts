@@ -1,13 +1,12 @@
-import { enableProdMode, InjectionToken } from '@angular/core';
+import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 import { APP_CONFIG, APP_DEFAULT_CONFIG } from './app/config/app.config';
+import { APP_VERSION } from './app/shared/version';
 import axios from 'axios';
 import * as _ from 'lodash';
-
-const APP_VERSION = new InjectionToken('app.version');
 
 axios.get('assets/config/pp.json', {
   timeout: 2000,

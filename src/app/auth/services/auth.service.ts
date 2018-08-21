@@ -5,7 +5,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 import * as lcid from 'lcid';
 
 import { Session } from '../models/session.model';
-import { StorageService } from '../../shared/storage.service';
+import { StorageService } from '../../shared/services/storage.service';
 import { OpenMetabase, OpenMetabaseResult } from '../../som/som';
 import { User } from '../models/user.model';
 
