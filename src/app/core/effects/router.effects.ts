@@ -32,7 +32,7 @@ export class RouterEffects {
 
         this.router.navigateByUrl(routerState.url, { queryParams: { locale: defaultLang } });
       } else {
-        this.translate.setDefaultLang(queryLang);
+        this.translate.use(queryLang);
       }
     })
   );

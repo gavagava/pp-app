@@ -1,0 +1,10 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="pp-login-form__field">
+    <div class="pp-login-form__label">{{'LOGIN_FORM.USERNAME' | translate}}</div>
+    <input class="pp-login-form__input" type="text" formControlName="username">
+  </div>
+  <div class="pp-login-form__field">
+    <div class="pp-login-form__label">{{'LOGIN_FORM.PASSWORD' | translate}}</div>
+    <input class="pp-login-form__input" type="password" formControlName="password">
+  </div>
+</form>

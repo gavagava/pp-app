@@ -4,11 +4,10 @@
       <div class="pp-logo__image"></div>
       <div class="pp-logo__version">{{version}}</div>
     </div>
-    <pp-login-form class="pp-login-page__form"
-      (submitted)="onSubmit($event)">
-    </pp-login-form>
+    <pp-login-form class="pp-login-page__form" (submitted)="onSubmit($event)"></pp-login-form>
   </div>
-  <div class="pp-login-page__footer">
-    <pp-locales-switch class="pp-login-page__switch"></pp-locales-switch>
+  <div class="pp-login-page__footer" *ngIf="langs.length > 0">
+    <pp-locales-switch class="pp-login-page__switch" [langList]="langs" [selectedLang]="appLang$ | async">
+    </pp-locales-switch>
   </div>
 </div>

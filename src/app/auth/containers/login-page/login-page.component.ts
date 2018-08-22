@@ -1,12 +1,13 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-
-import * as fromAuth from '../../reducers';
-import * as fromRoot from '../../../reducers';
+import { Observable } from 'rxjs';
+import { APP_VERSION } from '../../../shared/version';
 import * as Auth from '../../actions/auth';
 import { PasswordAuthenticate } from '../../models/authenticate';
-import { APP_VERSION } from '../../../shared/version';
-import { Observable } from 'rxjs';
+import * as fromAuth from '../../reducers';
+import * as fromRoot from '../../../reducers';
+import { APP_CONFIG, IAppConfig } from '../../../config/app.config';
+
 
 @Component({
   selector: 'pp-login-page',
@@ -14,18 +15,22 @@ import { Observable } from 'rxjs';
   styleUrls: ['./login-page.scss']
 })
 export class LoginPageComponent implements OnInit {
-  urlLang$: Observable<string>;
+  appLang$: Observable<string>;
+  repo$: Observable<string>;
+  langs: string[] = [];
 
   constructor(
+    @Inject(APP_CONFIG) private config: IAppConfig,
     private store: Store<fromAuth.State>,
-    @Inject(APP_VERSION) private version: string
+    @Inject(APP_VERSION) public version: string
   ) {
-    this.urlLang$ = this.store.pipe(
-      select(fromRoot.getUrlParamLang)
-    );
+    this.appLang$ = this.store.pipe(select(fromRoot.getLanguage));
+    this.repo$ = this.store.pipe(select(fromRoot.getRepo));
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.langs = this.config.localesList || [];
+  }
 
   onSubmit($event: PasswordAuthenticate) {
     this.store.dispatch(new Auth.Login($event));

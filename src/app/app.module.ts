@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -15,6 +16,7 @@ import { CustomRouterStateSerializer } from './shared/utils';
 
 @NgModule({
   imports: [
+    CommonModule,
     BrowserModule,
     HttpClientModule,
     StoreModule.forRoot(reducers),
@@ -29,7 +31,7 @@ import { CustomRouterStateSerializer } from './shared/utils';
     }),
     AppRoutingModule
   ],
-  providers: [ {provide: RouterStateSerializer, useClass: CustomRouterStateSerializer }],
+  providers: [{ provide: RouterStateSerializer, useClass: CustomRouterStateSerializer }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
