@@ -7,5 +7,7 @@
 			"path": "C:\\Dev\\wsdl2ts"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"typescript.tsdk": "pp-app\\node_modules\\typescript\\lib"
+	}
 }

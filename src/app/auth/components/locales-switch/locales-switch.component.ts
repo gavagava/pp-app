@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { PredefinedLocales } from '../../../shared/i18n';
 
 @Component({
   selector: 'pp-locales-switch',
@@ -13,7 +13,5 @@ export class LocalesSwitchComponent {
   @Input()
   selectedLang: string;
 
-  constructor(private translate: TranslateService) {
-    
-  }
+  locales = PredefinedLocales;
 }
