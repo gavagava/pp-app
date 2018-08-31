@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { PasswordAuthenticate } from '../models/authenticate';
+import { IPasswordAuthenticate } from '../models/authenticate';
 import { Session } from '../models/session.model';
 
 export enum AuthActionTypes {
@@ -9,12 +9,15 @@ export enum AuthActionTypes {
   Logout = '[Auth] Logout',
   LoginSuccess = '[Auth] LoginSuccess',
   LoginFailure = '[Auth] LoginFailure',
+  CheckStatus = '[Auth] CheckStatus',
+  CheckStatusSuccess = '[Auth] CheckStatusSuccess',
+  CheckStatusFailure = '[Auth] CheckStatusFailure'
 }
 
 export class Login implements Action {
   readonly type = AuthActionTypes.Login;
 
-  constructor(public payload: PasswordAuthenticate) {}
+  constructor(public payload: IPasswordAuthenticate) {}
 }
 
 export class LoginSuccess implements Action {
@@ -33,8 +36,29 @@ export class Logout implements Action {
   readonly type = AuthActionTypes.Logout;
 }
 
+export class CheckStatus implements Action {
+  readonly type = AuthActionTypes.CheckStatus;
+
+  constructor(public payload: {session: Session}) {}
+}
+
+export class CheckStatusSuccess implements Action {
+  readonly type = AuthActionTypes.CheckStatusSuccess;
+
+  constructor(public payload: {session: Session}) {}
+}
+
+export class CheckStatusFailure implements Action {
+  readonly type = AuthActionTypes.CheckStatusFailure;
+
+  constructor(public payload: {session: Session}) {}
+}
+
 export type AuthActions =
   | Login
   | LoginSuccess
   | LoginFailure
-  | Logout;
+  | Logout
+  | CheckStatus
+  | CheckStatusSuccess
+  | CheckStatusFailure;

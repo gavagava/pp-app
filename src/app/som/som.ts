@@ -114,7 +114,7 @@ export type EaxHeaderTitleContentType = 'Dim' | 'Attr' | 'DimAndAttr';
 export type EaxAdjustMode = 'None' | 'ColumnsThenRows' | 'RowsThenColumns' | 'Columns' | 'Rows' | 'Auto' | 'Simple';
 export type EaxDataDisplayMode = 'Interactive' | 'Hidden' | 'Unhidden';
 export type BarDockingEdge = 'Top' | 'Left' | 'Bottom' | 'Right' | 'None';
-export type EaxAggregationFunction = 'Sum' | 'Average' | 'Min' | 'Max' | 'NONE' | 'Count' | 'CountNull' | 'CountAll' | 'ActualFirst' | 'ActualLast' | 'ActualMean' | 'StDeviationP' | 'Median' | 'StDeviation' | 'CountUnique';
+export type EaxAggregationFunction = 'Sum' | 'Average' | 'Min' | 'Max' | 'NONE' | 'Count' | 'CountNull' | 'CountAll' | 'ActualFirst' | 'ActualLast' | 'ActualMean' | 'StDeviationP' | 'Median' | 'StDeviation' | 'CountUnique' | 'DataSource';
 export type EaxChartSingleCellRangeMode = 'EntireGrid' | 'SingleCell' | 'SingleRow' | 'SingleColumn';
 export type EaxChartEvaluatedElements = 0 | 1 | 2;
 export type EaxPointChartMode = 'XYY' | 'XYXY' | 'YXX' | 'YXYX';
@@ -242,6 +242,7 @@ export type TabFormatLayoutEnum = -1 | 0 | 1 | 2;
 export type TabFormatWordWrapEnum = -1 | 0 | 1 | 2;
 export type TabAccessRightsEnum = -1 | 0 | 1 | 2 | 3;
 export type TabActivationEditorModeEnum = -1 | 0 | 1 | 2;
+export type TabPatternTypeEnum = -1 | -2 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 | 51 | 52 | 53;
 export type TabHyperlinkTarget = -1 | 0 | 1 | 2 | 3;
 export type TabConditionType = 'Values' | 'CellContent' | 'RankValues' | 'Average' | 'Duplicate' | 'Formula' | 'Growth' | 'Scale' | 'Extended';
 export type TabCondPredefinedGradientStyle = 'GreenYellowRed' | 'BlueYellowRed' | 'YellowRed' | 'YellowGreen' | 'GreenYellow' | 'RedYellow' | 'RedYellowBlue' | 'RedYellowGreen';
@@ -294,6 +295,7 @@ export type MsAttributeVariableType = 'Series' | 'Observation';
 export type MsFormulaKnd = 'None' | 'Deterministic' | 'LinearRegression' | 'ExponentialSmoothing' | 'Arima' | 'User' | 'CurveEstimation' | 'SlideSmoothing' | 'MedianSmoothing' | 'HodrickPrescottFilter' | 'NonLinearEquations' | 'InterindustryBalance' | 'ErrorCorrectionModel' | 'ECMEquation' | 'NonLinearOptimization' | 'Aggregation' | 'NonLinearRegression' | 'GreyForecast' | 'LRXFilter' | 'CointegrationEquation' | 'BandpassFilter' | 'DetermAggregation' | 'SLS2' | 'FillGaps' | 'Cumulative' | 'Census2' | 'Collapse' | 'Interpolate' | 'Splice' | 'LinearEquations' | 'BinaryRegression' | 'PointwiseCollapse' | 'CrossDimensionAggregation' | 'PooledModel' | 'ValueAtRisk' | 'Census1' | 'R';
 export type MsMethodSeriesKind = 'Fitted' | 'Forecast' | 'Residuals' | 'LowerConfidenceLevel' | 'UpperConfidenceLevel' | 'DynamicLowerConfidenceLevel' | 'DynamicUpperConfidenceLevel' | 'Input' | 'AddFactor';
 export type MsCorrectStubPeriod = 'NotCorrect' | 'CorrectStubPeriod' | 'CorrectProblemPeriod';
+export type MsProblemCalculationOptions = 'None' | 'SkipOutputDataLoad' | 'CacheCoords' | 'AllowEmptySelection';
 export type PDLConstraintKind = 'None' | 'NearEnd' | 'FarEnd' | 'Both';
 export type MsCointegrationEquationOperandType = 'Common' | 'LongTerm' | 'Both';
 export type MsCalculationChainType = 'Folder' | 'Model' | 'MetaModel' | 'Iterator' | 'Branch' | 'Group' | 'Variable' | 'VisualElement' | 'System' | 'TargetProblem' | 'TargetConstraint' | 'TargetTrajectory' | 'MultiDimIterator' | 'Validation' | 'UserOptimizationProblem' | 'UserOptimizationConstraint';
@@ -1049,6 +1051,7 @@ export interface UiControlBindingDimCombo extends UiControlBindingValue {
   value?: any;
   object?: string;
   rds?: string;
+  Namespace?: string;
   group?: string;
   schema?: string;
   valueAttribute?: string;
@@ -1196,14 +1199,8 @@ export interface MbSecAbacTarget {
   val?: string;
 }
 export interface MbSecAbacFind {
-  n?: string;
-  id?: string;
   k?: number;
-}
-export interface MbSecAbacFindArr {
-  n?: ArrString;
-  id?: ArrString;
-  k?: ArrLong;
+  keys?: ArrLong;
 }
 export interface MbSecAbac {
   n?: string;
@@ -1213,24 +1210,24 @@ export interface MbSecAbac {
   target?: MbSecAbacTarget;
   active?: boolean;
 }
-export interface MbSecAbacRuleSimple extends MbSecAbac {
+export interface MbSecAbacChange extends MbSecAbac {
+  alg?: MbSecAbacAlg;
   condition?: string;
   effect?: MbSecAbacEffect;
 }
-export interface MbSecAbacRule {
-  find?: MbSecAbacFind;
-  rule?: MbSecAbacRuleSimple;
+export interface MbSecAbacChanges {
+  its: MbSecAbacChangePtrVec;
+}
+export interface MbSecAbacRule extends MbSecAbac {
+  condition?: string;
+  effect?: MbSecAbacEffect;
 }
 export interface MbSecAbacRuleVec {
   its: MbSecAbacRulePtrVec;
 }
-export interface MbSecAbacPolicySimple extends MbSecAbac {
+export interface MbSecAbacPolicy extends MbSecAbac {
   alg?: MbSecAbacAlg;
   rules?: MbSecAbacRuleVec;
-}
-export interface MbSecAbacPolicy {
-  find?: MbSecAbacFind;
-  policy?: MbSecAbacPolicySimple;
 }
 export interface MbSecAbacPolicies {
   its: MbSecAbacPolicyPtrVec;
@@ -1238,26 +1235,24 @@ export interface MbSecAbacPolicies {
 export interface MbSecAbacPolicySets {
   its: MbSecAbacPolicySetPtrVec;
 }
-export interface MbSecAbacPolicySetSimple extends MbSecAbac {
+export interface MbSecAbacPolicySet extends MbSecAbac {
   alg?: MbSecAbacAlg;
   policies?: MbSecAbacPolicies;
   policySets?: MbSecAbacPolicySets;
 }
-export interface MbSecAbacPolicySet {
-  find?: MbSecAbacFind;
-  set?: MbSecAbacPolicySetSimple;
-}
 export interface MbSecAbacRules {
   alg?: MbSecAbacAlg;
   policySets?: MbSecAbacPolicySets;
+  set?: MbSecAbacPolicySet;
+  policies?: MbSecAbacPolicies;
+  policy?: MbSecAbacPolicy;
+  rules?: MbSecAbacRuleVec;
+  rule?: MbSecAbacRule;
+  changes?: MbSecAbacChanges;
 }
 export interface MbSecAbacRulesPattern {
-  set?: ListOperation;
-  policy?: ListOperation;
-  rule?: ListOperation;
-  findSetArr?: MbSecAbacFindArr;
-  findPolicy?: MbSecAbacFind;
-  findRule?: MbSecAbacFind;
+  op?: ListOperation;
+  find?: MbSecAbacFind;
 }
 export interface AbacClassIds {
   cls?: ArrLong;
@@ -1270,6 +1265,8 @@ export interface MbSecAbacAttributes {
   its: MbSecAbacAttributePtrVec;
 }
 export interface AbacPatternFilter extends MbSecAbacFind {
+  n?: string;
+  id?: string;
   cl?: number;
   sid?: string;
 }
@@ -2575,6 +2572,7 @@ export interface DmSelectionArg {
   elSelectOp: DmElSelectOp;
   elRelative: DmElRelative;
   elKeys?: ElKeys;
+  ignoreMissingKeys?: boolean;
   next?: DmSelectionArg;
   assign?: DmSelectionAssignArg;
   nextList?: DmSelectionArgVec;
@@ -2856,6 +2854,7 @@ export interface CubeDataSource extends ObInst {
 export interface CubeDataSourcePattern {
   all?: boolean;
   dests?: boolean;
+  displaySourceName?: boolean;
   getCubeArg?: CubeMdPattern;
 }
 export interface EaxDimLevelAggregator extends ItEntity {
@@ -3037,6 +3036,7 @@ export interface PvtDim extends ItEntity {
   changeCounters?: SelectionChangeCounters;
   settings?: PvtDimSettings;
   isCombinedWithPrev?: boolean;
+  hasCalculatedElementsInSelection?: boolean;
 }
 export interface PvtDims {
   its: PvtDimVec;
@@ -3238,6 +3238,7 @@ export interface EaxPivot {
   dimsUnitedTop?: TriState;
   levelsSeparatedLeft?: boolean;
   levelsSeparatedTop?: boolean;
+  buildWithEmptyHeader?: boolean;
 }
 export interface EaxDataSourceDim extends ItEntity {
   dataSource: ItEntity;
@@ -3246,6 +3247,7 @@ export interface EaxDataSourceDim extends ItEntity {
 }
 export interface EaxDataSource extends ItEntity {
   cube?: CubeDataSource;
+  displaySourceName?: TriState;
 }
 export interface SearchStrStrItem {
   k: string;
@@ -3338,6 +3340,8 @@ export interface EaxGridAdjust {
   mode?: EaxAdjustMode;
   minVisibleDataColumns?: number;
   maxRowsInCell?: number;
+  maxLeftHdrWidth?: number;
+  maxRowHeight?: number;
 }
 export interface EaxGridSelectElementsAction {
   range: TabComplexRange;
@@ -3447,7 +3451,7 @@ export interface EaxDrillDown {
   chart?: EaxChartDrillDown;
 }
 export interface EaxChartDrillInfo {
-  method: EaxDataDrillType;
+  method?: EaxDataDrillType;
   serie: number;
   point?: number;
 }
@@ -3478,7 +3482,7 @@ export interface EaxVisChangeSelectionAction {
 }
 export interface EaxVisDrillInfo {
   elementId: any;
-  method: EaxDataDrillType;
+  method?: EaxDataDrillType;
 }
 export interface EaxVisActionsInfo {
   drill?: EaxVisDrillInfos;
@@ -3511,7 +3515,7 @@ export interface EaxChart extends EaxObject {
 }
 export interface EaxMapDrillInfo {
   territoryId: any;
-  method: EaxDataDrillType;
+  method?: EaxDataDrillType;
 }
 export interface EaxMapAction extends EaxObjectSelAction {
   selMarkers?: Avs;
@@ -3865,6 +3869,7 @@ export interface EaxHeaderPlacementSettings {
   mergedKey?: ElKey;
   uniteDimWithPrev?: boolean;
   combineElementWithPrevious?: boolean;
+  isMergeAllowed?: boolean;
 }
 export interface EaxDrillSettingsValue {
   key: number;
@@ -4095,7 +4100,7 @@ export interface EaxDataStatistics {
 }
 export interface EaxDrillInfo {
   n: number;
-  method: EaxDataDrillType;
+  method?: EaxDataDrillType;
 }
 export interface StreamId {
   id: string;
@@ -4196,6 +4201,7 @@ export interface EaxMd extends ObjectMd {
   table?: PvtTable;
   pivot?: EaxPivot;
   dataSources?: EaxDataSources;
+  dataSource?: EaxDataSource;
   dataSourceDims?: EaxDataSourceDims;
   grid?: EaxGrid;
   chart?: EaxChart;
@@ -4293,6 +4299,7 @@ export interface EaxMd extends ObjectMd {
   sliceKeepChangedData?: TriState;
   checkChangedData?: boolean;
   aggregatorsCollection?: EaxMatrixAggregatorsCollection;
+  sliceBackLight?: boolean;
 }
 export interface PvtSlotPattern {
   useSelIndex?: boolean;
@@ -4455,6 +4462,7 @@ export interface EaxMdPattern extends ObjectMdPattern {
   sliceKeepChangedData?: boolean;
   checkChangedDataArgs?: EaxPivotDataChangedArgs;
   aggregatorsCollection?: boolean;
+  sliceBackLight?: boolean;
 }
 export interface EaxSaveDataArg {
   continueOnError?: boolean;
@@ -5017,14 +5025,23 @@ export interface OpenCubeResult {
 export interface PvtId {
   id: string;
 }
-export interface DataAreaParam {
-  paramsBinary?: BinaryData;
+export interface PvtArgs {
+  params?: BinaryData;
   sliceKey: number;
   mbId: string;
+  pvtId?: string;
 }
-export interface GetPvtTablesResult {
+export interface PvtBaseResult {
+  success?: boolean;
+}
+export interface PvtExecuteResult extends PvtBaseResult {
+  pvtId: string;
   slitsBinary?: BinaryData;
   MatrixPart?: BinaryData;
+}
+export interface PvtChangeValueResult extends PvtBaseResult {
+  V?: string;
+  VT?: string;
 }
 export interface RubAtt extends ItEntity {
   value: any;
@@ -7340,6 +7357,7 @@ export interface PrxOptions {
   previewEnableEdit?: boolean;
   controlPanelPosition?: PrxControlPanelPosition;
   controlPanelVisible?: boolean;
+  showSelectionInViewMode?: boolean;
   footnotesOptions?: TabFootnotesOptions;
 }
 export interface TabObjectAction {
@@ -7391,6 +7409,7 @@ export interface PrxMd extends ObjectMd {
   eaxChartDrillEntry?: ItEntity;
   chartDrill?: EaxChartDrillInfos;
   dataArea?: EaxDataArea;
+  outOfRangeAfterRecalc?: boolean;
 }
 export interface PrxIslandPattern {
   operation?: ListOperation;
@@ -7453,6 +7472,7 @@ export interface PrxMdPattern extends ObjectMdPattern {
   hasEventHandler?: boolean;
   objDrillInfo?: PrxObjDrillPattern;
   dataArea?: EaxDataAreaPattern;
+  outOfRangeAfterRecalc?: boolean;
 }
 export interface PrxOpenArgs extends OdOpenArgs {
   openForEdit?: boolean;
@@ -7582,6 +7602,7 @@ export interface TabStyleImages {
   H?: TabCommonImage;
   P?: TabCommonImage;
   B?: TabCommonImage;
+  PT?: TabCommonImage;
 }
 export interface TabStyles extends TabStylesVec {
 }
@@ -7896,6 +7917,7 @@ export interface ChartMd {
   predefinedStyles?: PredefinedStylesDesc;
   predefinedStyle?: PredefinedStyleDesc;
   recommendedCharts?: RecommendedChartsArr;
+  MuchDataOrNotNumber?: boolean;
 }
 export interface GetDefaultChartResult extends GetChartResult {
 }
@@ -8441,12 +8463,15 @@ export interface AuditLogArchiveArg {
   date?: any;
   clearOnDone?: boolean;
   fileName?: string;
+  exportMode?: boolean;
+  storeOut?: boolean;
 }
 export interface AuditLogArchiveResult {
   active: number;
   done: boolean;
   progressPercent: number;
   out?: BinaryData;
+  outId?: BinaryId;
 }
 export interface AuditLogLogonsArg {
   fieldName: string;
@@ -8497,6 +8522,15 @@ export interface MsScenarioNode extends ItEntity {
 }
 export interface MsScenarioTree {
   nodes: MsScenarioNodePtrVec;
+}
+export interface MsDatePeriod {
+  start?: any;
+  end?: any;
+  startParamID?: string;
+  endParamID?: string;
+  startOffset?: number;
+  endOffset?: number;
+  autoPeriod?: number;
 }
 export interface MsModelParam extends ItEntity {
   dataType?: ItDataType;
@@ -8965,6 +8999,7 @@ export interface MsUserOptimizationConstraint extends MsNonLinearConstraint {
 }
 export interface MsModelParamValue extends ItEntity {
   value?: any;
+  selection?: DimSelection;
 }
 export interface MsModelParamValues {
   its: MsModelParamValuesVec;
@@ -8973,6 +9008,23 @@ export interface MsDataLoadingPeriod {
   useDefault?: boolean;
   startDate?: any;
   endDate?: any;
+}
+export interface MsStubLoadSelectionValue {
+  stubKey: number;
+  selections?: DimSelections;
+}
+export interface MsStubLoadSelectionValues {
+  its: MsStubLoadSelectionValuesVec;
+}
+export interface MsCalculationChainFilter {
+  its: MsCalculationChainEntriesVec;
+}
+export interface MsStubSelection {
+  stubKey: number;
+  its: SelectionSetsVec;
+}
+export interface MsStubSelectionFilter {
+  its: MsStubSelectionsVec;
 }
 export interface MsProblemCalculationSettings {
   includedScenarioKeys?: ArrLong;
@@ -8984,8 +9036,17 @@ export interface MsProblemCalculationSettings {
   breakOnError?: boolean;
   clearSeriesOnWarning?: boolean;
   filterWarnings?: boolean;
+  advancedOptions?: MsProblemCalculationOptions;
+  stubLoadSelections?: MsStubLoadSelectionValues;
   correctStubPeriod?: MsCorrectStubPeriod;
+  filterLevelsOnLoad?: boolean;
+  outputPeriod?: MsDatePeriod;
   targetKey?: number;
+  calcTransformationOnlyByFact?: boolean;
+  entriesFilter?: MsCalculationChainFilter;
+  executionFilter?: MsStubSelectionFilter;
+  valueFlag?: number;
+  autoArrange?: boolean;
 }
 export interface MsBaseOptimizationProblem {
   criterionFunction?: string;
@@ -9061,6 +9122,8 @@ export interface MsProblemCalculation {
   isRunning?: boolean;
   calculationState?: MsCalculationState;
   isSuspend?: boolean;
+  saveZeros?: boolean;
+  overwriteSameValues?: boolean;
 }
 export interface MsScenarioList {
   its: MsScenariosVec;
@@ -9481,6 +9544,14 @@ export interface OpenMsResult {
   id: MsId;
   meta?: MsMd;
   readOnly?: boolean;
+}
+export interface CalcMsArg {
+  key: number;
+  settings: MsProblemCalculationSettings;
+  calculation: MsProblemCalculation;
+}
+export interface CalcMsResult {
+  errors?: ArrString;
 }
 export interface MsMetaAttributeValues extends ItEntity {
   selection?: DimSelection;
@@ -10260,6 +10331,15 @@ export interface GetSearchArg {
   GetMbObjectsArg?: SearchMbObjectsArg;
   GetSourceDataArg?: SearchSourceDataArg;
 }
+export interface MbLicenseId {
+  id: string;
+}
+export interface OpenMbLicenseArg {
+  featureType: LicenseFeatureType;
+}
+export interface OpenMbLicenseResult {
+  id: MbLicenseId;
+}
 export interface UpdateUPCArg {
   userName: string;
   pass: string;
@@ -10356,6 +10436,9 @@ export interface MbSecLogonHourVec {
 }
 export interface MbSecLogonHoursPeriodVec {
   it: MbSecLogonHoursPeriod[];
+}
+export interface MbSecAbacChangePtrVec {
+  Item: MbSecAbacChange[];
 }
 export interface MbSecAbacRulePtrVec {
   Item: MbSecAbacRule[];
@@ -11296,6 +11379,9 @@ export interface MsParametrizedDimensionsVec {
 export interface SelectionsVec {
   Item: DimSelection[];
 }
+export interface SelectionSetsVec {
+  Item: DimSelections[];
+}
 export interface MsFormulaObjectVec {
   Item: MsFormulaObject[];
 }
@@ -11328,6 +11414,12 @@ export interface MsCalculationChainEntriesVec {
 }
 export interface MsModelParamValuesVec {
   Item: MsModelParamValue[];
+}
+export interface MsStubLoadSelectionValuesVec {
+  Item: MsStubLoadSelectionValue[];
+}
+export interface MsStubSelectionsVec {
+  Item: MsStubSelection[];
 }
 export interface MsTargetConstraintInfosVec {
   Item: MsTargetConstraintInfo[];
@@ -11622,6 +11714,13 @@ export interface GetMbUpdate {
 export interface SetMbUpdate {
   tMbUpdate: MbUpdateId;
   tArg: SetMbUpdateArg;
+}
+export interface OpenMbLicense {
+  tMb: MbId;
+  tArg: OpenMbLicenseArg;
+}
+export interface CloseMbLicense {
+  tMbLicense: MbLicenseId;
 }
 export interface OpenDim {
   tObject: OdId;
@@ -11977,6 +12076,10 @@ export interface OpenMs {
 export interface CloseMs {
   tMs: MsId;
 }
+export interface CalcMs {
+  tMs: MsId;
+  tArg: CalcMsArg;
+}
 export interface GetMs {
   tMs: MsId;
   tArg: GetMsArg;
@@ -12011,6 +12114,7 @@ export interface GetBin {
   attach?: BinAttachmentDisposition;
   fileName?: string;
   cache?: string;
+  keep?: boolean;
 }
 export interface PutBinary {
   tBinary: BinaryId;
@@ -12068,6 +12172,1438 @@ export interface CopyStyleSheet {
   tStyleSheetTo: StyleSheetId;
   tArg: CopyStyleSheetArg;
 }
-export interface GetPvtTables {
-  tDataAreaParam: DataAreaParam;
+export interface PvtExecute {
+  tPvtArgs: PvtArgs;
 }
+export interface PvtChangeValue {
+  tPvtArgs: PvtArgs;
+}
+export interface PvtClose {
+  tPvtArgs: PvtArgs;
+}
+export interface PvtPost {
+  tPvtArgs: PvtArgs;
+}
+export interface PvtCancel {
+  tPvtArgs: PvtArgs;
+}
+export type CloseMetabaseResult = boolean;
+export type UpdateUPCResult = boolean;
+export type SaveObjectResult = boolean;
+export type CloseObjectResult = boolean;
+export type CheckAuditLoginResult = boolean;
+export type GetSubjectMemberOfResult = MbSubjectMemberOfResult;
+export type SubjectsSearchResult = MbSubjectsSearchResult;
+export type LookupSubjectInfoResult = MbSubjectsSearchItem;
+export type GetMbDrvsResult = MbDalDrvsResult;
+export type CloseMbSecSnapshotResult = boolean;
+export type CloseAuditLogResult = boolean;
+export type CloseCustomObResult = boolean;
+export type CloseMbUpdateResult = boolean;
+export type CloseMbLicenseResult = boolean;
+export type CloseDimResult = boolean;
+export type CloseEaxResult = boolean;
+export type CloseScorecardResult = boolean;
+export type CloseDbCommandResult = boolean;
+export type CloseParamValuesResult = boolean;
+export type CloseRdsResult = boolean;
+export type CloseCubeResult = boolean;
+export type CloseResourceResult = boolean;
+export type CloseRubResult = boolean;
+export type CloseCubeImportResult = boolean;
+export type CloseHieResult = boolean;
+export type CloseVfResult = boolean;
+export type CloseWbkResult = boolean;
+export type CloseWspResult = boolean;
+export type CloseSchedulerResult = boolean;
+export type CloseEtlResult = boolean;
+export type ClosePrxResult = boolean;
+export type CloseAdHocResult = boolean;
+export type CloseMsResult = boolean;
+export type GetDmResult = DmMethod;
+export type GetDmDataSourceResult = DmDataSource;
+export type GetBinResult = BinaryData;
+export type PutBinResult = string;
+export type SetExpResult = ExpressionResult;
+export type CloseDtbDalResult = boolean;
+export type PvtCloseResult = PvtBaseResult;
+export type PvtPostResult = PvtBaseResult;
+export type PvtCancelResult = PvtBaseResult;
+export interface GetStatusRequest {
+  GetStatus: GetStatus;
+}
+export interface GetStatusResponse {
+  GetStatusResult: GetStatusResult;
+}
+export interface GetSvcRequest {
+  GetSvc: GetSvc;
+}
+export interface GetSvcResponse {
+  GetSvcResult: GetSvcResult;
+}
+export interface SetSvcRequest {
+  SetSvc: SetSvc;
+}
+export interface SetSvcResponse {
+  SetSvcResult: SetSvcResult;
+}
+export interface OpenMetabaseRequest {
+  OpenMetabase: OpenMetabase;
+}
+export interface OpenMetabaseResponse {
+  OpenMetabaseResult: OpenMetabaseResult;
+}
+export interface CloseMetabaseRequest {
+  CloseMetabase: CloseMetabase;
+}
+export interface CloseMetabaseResponse {
+  CloseMetabaseResult: CloseMetabaseResult;
+}
+export interface UpdateUPCRequest {
+  UpdateUPC: UpdateUPC;
+}
+export interface UpdateUPCResponse {
+  UpdateUPCResult: UpdateUPCResult;
+}
+export interface GetOAuthTokenRequest {
+  GetOAuthToken: GetOAuthToken;
+}
+export interface GetOAuthTokenResponse {
+  GetOAuthTokenResult: GetOAuthTokenResult;
+}
+export interface GetSAMLRequestRequest {
+  GetSAMLRequest: GetSAMLRequest;
+}
+export interface GetSAMLRequestResponse {
+  GetSAMLRequestResult: GetSAMLRequestResult;
+}
+export interface GetVerifierCodeRequest {
+  GetVerifierCode: GetVerifierCode;
+}
+export interface GetVerifierCodeResponse {
+  GetVerifierCodeResult: GetVerifierCodeResult;
+}
+export interface GetObjectsRequest {
+  GetObjects: GetObjects;
+}
+export interface GetObjectsResponse {
+  GetObjectsResult: GetObjectsResult;
+}
+export interface SaveObjectRequest {
+  SaveObject: SaveObject;
+}
+export interface SaveObjectResponse {
+  SaveObjectResult: SaveObjectResult;
+}
+export interface SetObjectRequest {
+  SetObject: SetObject;
+}
+export interface SetObjectResponse {
+  SetObjectResult: SetObjectResult;
+}
+export interface SaveObjectAsRequest {
+  SaveObjectAs: SaveObjectAs;
+}
+export interface SaveObjectAsResponse {
+  SaveObjectAsResult: SaveObjectAsResult;
+}
+export interface CreateObjectRequest {
+  CreateObject: CreateObject;
+}
+export interface CreateObjectResponse {
+  CreateObjectResult: CreateObjectResult;
+}
+export interface CopyObjectRequest {
+  CopyObject: CopyObject;
+}
+export interface CopyObjectResponse {
+  CopyObjectResult: CopyObjectResult;
+}
+export interface MoveObjectRequest {
+  MoveObject: MoveObject;
+}
+export interface MoveObjectResponse {
+  MoveObjectResult: MoveObjectResult;
+}
+export interface DeleteObjectsRequest {
+  DeleteObjects: DeleteObjects;
+}
+export interface DeleteObjectsResponse {
+  DeleteObjectsResult: DeleteObjectsResult;
+}
+export interface GetRawMdRequest {
+  GetRawMd: GetRawMd;
+}
+export interface GetRawMdResponse {
+  GetRawMdResult: GetRawMdResult;
+}
+export interface SetRawMdRequest {
+  SetRawMd: SetRawMd;
+}
+export interface SetRawMdResponse {
+  SetRawMdResult: SetRawMdResult;
+}
+export interface CloseObjectRequest {
+  CloseObject: CloseObject;
+}
+export interface CloseObjectResponse {
+  CloseObjectResult: CloseObjectResult;
+}
+export interface GetMbSecRequest {
+  GetMbSec: GetMbSec;
+}
+export interface GetMbSecResponse {
+  GetMbSecResult: GetMbSecResult;
+}
+export interface SetMbSecRequest {
+  SetMbSec: SetMbSec;
+}
+export interface SetMbSecResponse {
+  SetMbSecResult: SetMbSecResult;
+}
+export interface GetSessionsRequest {
+  GetSessions: GetSessions;
+}
+export interface GetSessionsResponse {
+  GetSessionsResult: GetSessionsResult;
+}
+export interface DisconnectSessionsRequest {
+  DisconnectSessions: DisconnectSessions;
+}
+export interface DisconnectSessionsResponse {
+  DisconnectSessionsResult: DisconnectSessionsResult;
+}
+export interface CheckAuditLoginRequest {
+  CheckAuditLogin: CheckAuditLogin;
+}
+export interface CheckAuditLoginResponse {
+  CheckAuditLoginResult: CheckAuditLoginResult;
+}
+export interface GetSubjectMemberOfRequest {
+  GetSubjectMemberOf: GetSubjectMemberOf;
+}
+export interface GetSubjectMemberOfResponse {
+  GetSubjectMemberOfResult: GetSubjectMemberOfResult;
+}
+export interface SubjectsSearchRequest {
+  SubjectsSearch: SubjectsSearch;
+}
+export interface SubjectsSearchResponse {
+  SubjectsSearchResult: SubjectsSearchResult;
+}
+export interface LookupSubjectInfoRequest {
+  LookupSubjectInfo: LookupSubjectInfo;
+}
+export interface LookupSubjectInfoResponse {
+  LookupSubjectInfoResult: LookupSubjectInfoResult;
+}
+export interface GetMbDrvsRequest {
+  GetMbDrvs: GetMbDrvs;
+}
+export interface GetMbDrvsResponse {
+  GetMbDrvsResult: GetMbDrvsResult;
+}
+export interface ExportMbSubjectsRequest {
+  ExportMbSubjects: ExportMbSubjects;
+}
+export interface ExportMbSubjectsResponse {
+  ExportMbSubjectsResult: ExportMbSubjectsResult;
+}
+export interface OpenMbSecSnapshotRequest {
+  OpenMbSecSnapshot: OpenMbSecSnapshot;
+}
+export interface OpenMbSecSnapshotResponse {
+  OpenMbSecSnapshotResult: OpenMbSecSnapshotResult;
+}
+export interface CloseMbSecSnapshotRequest {
+  CloseMbSecSnapshot: CloseMbSecSnapshot;
+}
+export interface CloseMbSecSnapshotResponse {
+  CloseMbSecSnapshotResult: CloseMbSecSnapshotResult;
+}
+export interface GetMbSecSnapshotRequest {
+  GetMbSecSnapshot: GetMbSecSnapshot;
+}
+export interface GetMbSecSnapshotResponse {
+  GetMbSecSnapshotResult: GetMbSecSnapshotResult;
+}
+export interface SetMbSecSnapshotRequest {
+  SetMbSecSnapshot: SetMbSecSnapshot;
+}
+export interface SetMbSecSnapshotResponse {
+  SetMbSecSnapshotResult: SetMbSecSnapshotResult;
+}
+export interface OpenAuditLogRequest {
+  OpenAuditLog: OpenAuditLog;
+}
+export interface OpenAuditLogResponse {
+  OpenAuditLogResult: OpenAuditLogResult;
+}
+export interface GetAuditLogRequest {
+  GetAuditLog: GetAuditLog;
+}
+export interface GetAuditLogResponse {
+  GetAuditLogResult: GetAuditLogResult;
+}
+export interface GetAuditLogMdRequest {
+  GetAuditLogMd: GetAuditLogMd;
+}
+export interface GetAuditLogMdResponse {
+  GetAuditLogMdResult: GetAuditLogMdResult;
+}
+export interface SetAuditLogMdRequest {
+  SetAuditLogMd: SetAuditLogMd;
+}
+export interface SetAuditLogMdResponse {
+  SetAuditLogMdResult: SetAuditLogMdResult;
+}
+export interface CloseAuditLogRequest {
+  CloseAuditLog: CloseAuditLog;
+}
+export interface CloseAuditLogResponse {
+  CloseAuditLogResult: CloseAuditLogResult;
+}
+export interface ShareRequest {
+  Share: Share;
+}
+export interface ShareResponse {
+  ShareResult: ShareResult;
+}
+export interface OpenCustomObRequest {
+  OpenCustomOb: OpenCustomOb;
+}
+export interface OpenCustomObResponse {
+  OpenCustomObResult: OpenCustomObResult;
+}
+export interface CloseCustomObRequest {
+  CloseCustomOb: CloseCustomOb;
+}
+export interface CloseCustomObResponse {
+  CloseCustomObResult: CloseCustomObResult;
+}
+export interface GetCustomObRequest {
+  GetCustomOb: GetCustomOb;
+}
+export interface GetCustomObResponse {
+  GetCustomObResult: GetCustomObResult;
+}
+export interface SetCustomObRequest {
+  SetCustomOb: SetCustomOb;
+}
+export interface SetCustomObResponse {
+  SetCustomObResult: SetCustomObResult;
+}
+export interface OpenMbUpdateRequest {
+  OpenMbUpdate: OpenMbUpdate;
+}
+export interface OpenMbUpdateResponse {
+  OpenMbUpdateResult: OpenMbUpdateResult;
+}
+export interface CloseMbUpdateRequest {
+  CloseMbUpdate: CloseMbUpdate;
+}
+export interface CloseMbUpdateResponse {
+  CloseMbUpdateResult: CloseMbUpdateResult;
+}
+export interface GetMbUpdateRequest {
+  GetMbUpdate: GetMbUpdate;
+}
+export interface GetMbUpdateResponse {
+  GetMbUpdateResult: GetMbUpdateResult;
+}
+export interface SetMbUpdateRequest {
+  SetMbUpdate: SetMbUpdate;
+}
+export interface SetMbUpdateResponse {
+  SetMbUpdateResult: SetMbUpdateResult;
+}
+export interface OpenMbLicenseRequest {
+  OpenMbLicense: OpenMbLicense;
+}
+export interface OpenMbLicenseResponse {
+  OpenMbLicenseResult: OpenMbLicenseResult;
+}
+export interface CloseMbLicenseRequest {
+  CloseMbLicense: CloseMbLicense;
+}
+export interface CloseMbLicenseResponse {
+  CloseMbLicenseResult: CloseMbLicenseResult;
+}
+export interface OpenDimRequest {
+  OpenDim: OpenDim;
+}
+export interface OpenDimResponse {
+  OpenDimResult: OpenDimResult;
+}
+export interface CloseDimRequest {
+  CloseDim: CloseDim;
+}
+export interface CloseDimResponse {
+  CloseDimResult: CloseDimResult;
+}
+export interface GetDimElementsRequest {
+  GetDimElements: GetDimElements;
+}
+export interface GetDimElementsResponse {
+  GetDimElementsResult: GetDimElementsResult;
+}
+export interface GetDimMetadataRequest {
+  GetDimMetadata: GetDimMetadata;
+}
+export interface GetDimMetadataResponse {
+  GetDimMetadataResult: GetDimMetadataResult;
+}
+export interface ChangeDimSelectionRequest {
+  ChangeDimSelection: ChangeDimSelection;
+}
+export interface ChangeDimSelectionResponse {
+  ChangeDimSelectionResult: ChangeDimSelectionResult;
+}
+export interface OpenEaxRequest {
+  OpenEax: OpenEax;
+}
+export interface OpenEaxResponse {
+  OpenEaxResult: OpenEaxResult;
+}
+export interface CloseEaxRequest {
+  CloseEax: CloseEax;
+}
+export interface CloseEaxResponse {
+  CloseEaxResult: CloseEaxResult;
+}
+export interface GetEaxMdRequest {
+  GetEaxMd: GetEaxMd;
+}
+export interface GetEaxMdResponse {
+  GetEaxMdResult: GetEaxMdResult;
+}
+export interface SetEaxMdRequest {
+  SetEaxMd: SetEaxMd;
+}
+export interface SetEaxMdResponse {
+  SetEaxMdResult: SetEaxMdResult;
+}
+export interface OpenScorecardRequest {
+  OpenScorecard: OpenScorecard;
+}
+export interface OpenScorecardResponse {
+  OpenScorecardResult: OpenScorecardResult;
+}
+export interface CloseScorecardRequest {
+  CloseScorecard: CloseScorecard;
+}
+export interface CloseScorecardResponse {
+  CloseScorecardResult: CloseScorecardResult;
+}
+export interface GetScorecardMdRequest {
+  GetScorecardMd: GetScorecardMd;
+}
+export interface GetScorecardMdResponse {
+  GetScorecardMdResult: GetScorecardMdResult;
+}
+export interface SetScorecardMdRequest {
+  SetScorecardMd: SetScorecardMd;
+}
+export interface SetScorecardMdResponse {
+  SetScorecardMdResult: SetScorecardMdResult;
+}
+export interface OpenDbCommandRequest {
+  OpenDbCommand: OpenDbCommand;
+}
+export interface OpenDbCommandResponse {
+  OpenDbCommandResult: OpenDbCommandResult;
+}
+export interface CloseDbCommandRequest {
+  CloseDbCommand: CloseDbCommand;
+}
+export interface CloseDbCommandResponse {
+  CloseDbCommandResult: CloseDbCommandResult;
+}
+export interface GetDbCommandRequest {
+  GetDbCommand: GetDbCommand;
+}
+export interface GetDbCommandResponse {
+  GetDbCommandResult: GetDbCommandResult;
+}
+export interface SetDbCommandRequest {
+  SetDbCommand: SetDbCommand;
+}
+export interface SetDbCommandResponse {
+  SetDbCommandResult: SetDbCommandResult;
+}
+export interface OpenRdsRequest {
+  OpenRds: OpenRds;
+}
+export interface OpenRdsResponse {
+  OpenRdsResult: OpenRdsResult;
+}
+export interface OpenRdsParamsRequest {
+  OpenRdsParams: OpenRdsParams;
+}
+export interface OpenRdsParamsResponse {
+  OpenRdsParamsResult: OpenRdsParamsResult;
+}
+export interface CloseParamValuesRequest {
+  CloseParamValues: CloseParamValues;
+}
+export interface CloseParamValuesResponse {
+  CloseParamValuesResult: CloseParamValuesResult;
+}
+export interface CloseRdsRequest {
+  CloseRds: CloseRds;
+}
+export interface CloseRdsResponse {
+  CloseRdsResult: CloseRdsResult;
+}
+export interface GetRdsRequest {
+  GetRds: GetRds;
+}
+export interface GetRdsResponse {
+  GetRdsResult: GetRdsResult;
+}
+export interface SetRdsRequest {
+  SetRds: SetRds;
+}
+export interface SetRdsResponse {
+  SetRdsResult: SetRdsResult;
+}
+export interface GetRdsElementsRequest {
+  GetRdsElements: GetRdsElements;
+}
+export interface GetRdsElementsResponse {
+  GetRdsElementsResult: GetRdsElementsResult;
+}
+export interface SetRdsElementsRequest {
+  SetRdsElements: SetRdsElements;
+}
+export interface SetRdsElementsResponse {
+  SetRdsElementsResult: SetRdsElementsResult;
+}
+export interface OpenCubeRequest {
+  OpenCube: OpenCube;
+}
+export interface OpenCubeResponse {
+  OpenCubeResult: OpenCubeResult;
+}
+export interface CloseCubeRequest {
+  CloseCube: CloseCube;
+}
+export interface CloseCubeResponse {
+  CloseCubeResult: CloseCubeResult;
+}
+export interface GetCubeRequest {
+  GetCube: GetCube;
+}
+export interface GetCubeResponse {
+  GetCubeResult: GetCubeResult;
+}
+export interface SetCubeRequest {
+  SetCube: SetCube;
+}
+export interface SetCubeResponse {
+  SetCubeResult: SetCubeResult;
+}
+export interface OpenResourceRequest {
+  OpenResource: OpenResource;
+}
+export interface OpenResourceResponse {
+  OpenResourceResult: OpenResourceResult;
+}
+export interface CloseResourceRequest {
+  CloseResource: CloseResource;
+}
+export interface CloseResourceResponse {
+  CloseResourceResult: CloseResourceResult;
+}
+export interface GetResourceRequest {
+  GetResource: GetResource;
+}
+export interface GetResourceResponse {
+  GetResourceResult: GetResourceResult;
+}
+export interface SetResourceRequest {
+  SetResource: SetResource;
+}
+export interface SetResourceResponse {
+  SetResourceResult: SetResourceResult;
+}
+export interface OpenRubRequest {
+  OpenRub: OpenRub;
+}
+export interface OpenRubResponse {
+  OpenRubResult: OpenRubResult;
+}
+export interface CloseRubRequest {
+  CloseRub: CloseRub;
+}
+export interface CloseRubResponse {
+  CloseRubResult: CloseRubResult;
+}
+export interface GetRubMdRequest {
+  GetRubMd: GetRubMd;
+}
+export interface GetRubMdResponse {
+  GetRubMdResult: GetRubMdResult;
+}
+export interface OpenCubeImportRequest {
+  OpenCubeImport: OpenCubeImport;
+}
+export interface OpenCubeImportResponse {
+  OpenCubeImportResult: OpenCubeImportResult;
+}
+export interface CloseCubeImportRequest {
+  CloseCubeImport: CloseCubeImport;
+}
+export interface CloseCubeImportResponse {
+  CloseCubeImportResult: CloseCubeImportResult;
+}
+export interface GetCubeImportRequest {
+  GetCubeImport: GetCubeImport;
+}
+export interface GetCubeImportResponse {
+  GetCubeImportResult: GetCubeImportResult;
+}
+export interface SetCubeImportRequest {
+  SetCubeImport: SetCubeImport;
+}
+export interface SetCubeImportResponse {
+  SetCubeImportResult: SetCubeImportResult;
+}
+export interface OpenHieRequest {
+  OpenHie: OpenHie;
+}
+export interface OpenHieResponse {
+  OpenHieResult: OpenHieResult;
+}
+export interface CloseHieRequest {
+  CloseHie: CloseHie;
+}
+export interface CloseHieResponse {
+  CloseHieResult: CloseHieResult;
+}
+export interface GetHieMdRequest {
+  GetHieMd: GetHieMd;
+}
+export interface GetHieMdResponse {
+  GetHieMdResult: GetHieMdResult;
+}
+export interface SetHieMdRequest {
+  SetHieMd: SetHieMd;
+}
+export interface SetHieMdResponse {
+  SetHieMdResult: SetHieMdResult;
+}
+export interface GetHieMembersRequest {
+  GetHieMembers: GetHieMembers;
+}
+export interface GetHieMembersResponse {
+  GetHieMembersResult: GetHieMembersResult;
+}
+export interface OpenVfRequest {
+  OpenVf: OpenVf;
+}
+export interface OpenVfResponse {
+  OpenVfResult: OpenVfResult;
+}
+export interface CloseVfRequest {
+  CloseVf: CloseVf;
+}
+export interface CloseVfResponse {
+  CloseVfResult: CloseVfResult;
+}
+export interface GetVfMdRequest {
+  GetVfMd: GetVfMd;
+}
+export interface GetVfMdResponse {
+  GetVfMdResult: GetVfMdResult;
+}
+export interface SetVfMdRequest {
+  SetVfMd: SetVfMd;
+}
+export interface SetVfMdResponse {
+  SetVfMdResult: SetVfMdResult;
+}
+export interface OpenWbkRequest {
+  OpenWbk: OpenWbk;
+}
+export interface OpenWbkResponse {
+  OpenWbkResult: OpenWbkResult;
+}
+export interface CloseWbkRequest {
+  CloseWbk: CloseWbk;
+}
+export interface CloseWbkResponse {
+  CloseWbkResult: CloseWbkResult;
+}
+export interface GetWbkMdRequest {
+  GetWbkMd: GetWbkMd;
+}
+export interface GetWbkMdResponse {
+  GetWbkMdResult: GetWbkMdResult;
+}
+export interface SetWbkMdRequest {
+  SetWbkMd: SetWbkMd;
+}
+export interface SetWbkMdResponse {
+  SetWbkMdResult: SetWbkMdResult;
+}
+export interface OpenWspRequest {
+  OpenWsp: OpenWsp;
+}
+export interface OpenWspResponse {
+  OpenWspResult: OpenWspResult;
+}
+export interface CloseWspRequest {
+  CloseWsp: CloseWsp;
+}
+export interface CloseWspResponse {
+  CloseWspResult: CloseWspResult;
+}
+export interface GetWspMdRequest {
+  GetWspMd: GetWspMd;
+}
+export interface GetWspMdResponse {
+  GetWspMdResult: GetWspMdResult;
+}
+export interface SetWspMdRequest {
+  SetWspMd: SetWspMd;
+}
+export interface SetWspMdResponse {
+  SetWspMdResult: SetWspMdResult;
+}
+export interface OpenSchedulerRequest {
+  OpenScheduler: OpenScheduler;
+}
+export interface OpenSchedulerResponse {
+  OpenSchedulerResult: OpenSchedulerResult;
+}
+export interface CloseSchedulerRequest {
+  CloseScheduler: CloseScheduler;
+}
+export interface CloseSchedulerResponse {
+  CloseSchedulerResult: CloseSchedulerResult;
+}
+export interface GetSchedulerRequest {
+  GetScheduler: GetScheduler;
+}
+export interface GetSchedulerResponse {
+  GetSchedulerResult: GetSchedulerResult;
+}
+export interface SetSchedulerRequest {
+  SetScheduler: SetScheduler;
+}
+export interface SetSchedulerResponse {
+  SetSchedulerResult: SetSchedulerResult;
+}
+export interface OpenEtlRequest {
+  OpenEtl: OpenEtl;
+}
+export interface OpenEtlResponse {
+  OpenEtlResult: OpenEtlResult;
+}
+export interface CloseEtlRequest {
+  CloseEtl: CloseEtl;
+}
+export interface CloseEtlResponse {
+  CloseEtlResult: CloseEtlResult;
+}
+export interface GetEtlRequest {
+  GetEtl: GetEtl;
+}
+export interface GetEtlResponse {
+  GetEtlResult: GetEtlResult;
+}
+export interface SetEtlRequest {
+  SetEtl: SetEtl;
+}
+export interface SetEtlResponse {
+  SetEtlResult: SetEtlResult;
+}
+export interface GetTabSheetDataRequest {
+  GetTabSheetData: GetTabSheetData;
+}
+export interface GetTabSheetDataResponse {
+  GetTabSheetDataResult: GetTabSheetDataResult;
+}
+export interface SetTabSheetDataRequest {
+  SetTabSheetData: SetTabSheetData;
+}
+export interface SetTabSheetDataResponse {
+  SetTabSheetDataResult: SetTabSheetDataResult;
+}
+export interface GetDocumentDataRequest {
+  GetDocumentData: GetDocumentData;
+}
+export interface GetDocumentDataResponse {
+  GetDocumentDataResult: GetDocumentDataResult;
+}
+export interface OpenPrxRequest {
+  OpenPrx: OpenPrx;
+}
+export interface OpenPrxResponse {
+  OpenPrxResult: OpenPrxResult;
+}
+export interface GetPrxMdRequest {
+  GetPrxMd: GetPrxMd;
+}
+export interface GetPrxMdResponse {
+  GetPrxMdResult: GetPrxMdResult;
+}
+export interface SetPrxMdRequest {
+  SetPrxMd: SetPrxMd;
+}
+export interface SetPrxMdResponse {
+  SetPrxMdResult: SetPrxMdResult;
+}
+export interface ClosePrxRequest {
+  ClosePrx: ClosePrx;
+}
+export interface ClosePrxResponse {
+  ClosePrxResult: ClosePrxResult;
+}
+export interface GetChartRequest {
+  GetChart: GetChart;
+}
+export interface GetChartResponse {
+  GetChartResult: GetChartResult;
+}
+export interface SetChartRequest {
+  SetChart: SetChart;
+}
+export interface SetChartResponse {
+  SetChartResult: SetChartResult;
+}
+export interface GetDefaultChartRequest {
+  GetDefaultChart: GetDefaultChart;
+}
+export interface GetDefaultChartResponse {
+  GetDefaultChartResult: GetDefaultChartResult;
+}
+export interface GetChartStyleRequest {
+  GetChartStyle: GetChartStyle;
+}
+export interface GetChartStyleResponse {
+  GetChartStyleResult: GetChartStyleResult;
+}
+export interface GetMapRequest {
+  GetMap: GetMap;
+}
+export interface GetMapResponse {
+  GetMapResult: GetMapResult;
+}
+export interface SetMapRequest {
+  SetMap: SetMap;
+}
+export interface SetMapResponse {
+  SetMapResult: SetMapResult;
+}
+export interface GetSpeedometerRequest {
+  GetSpeedometer: GetSpeedometer;
+}
+export interface GetSpeedometerResponse {
+  GetSpeedometerResult: GetSpeedometerResult;
+}
+export interface SetSpeedometerRequest {
+  SetSpeedometer: SetSpeedometer;
+}
+export interface SetSpeedometerResponse {
+  SetSpeedometerResult: SetSpeedometerResult;
+}
+export interface GetBubbleTreeRequest {
+  GetBubbleTree: GetBubbleTree;
+}
+export interface GetBubbleTreeResponse {
+  GetBubbleTreeResult: GetBubbleTreeResult;
+}
+export interface SetBubbleTreeRequest {
+  SetBubbleTree: SetBubbleTree;
+}
+export interface SetBubbleTreeResponse {
+  SetBubbleTreeResult: SetBubbleTreeResult;
+}
+export interface GetTreeMapRequest {
+  GetTreeMap: GetTreeMap;
+}
+export interface GetTreeMapResponse {
+  GetTreeMapResult: GetTreeMapResult;
+}
+export interface SetTreeMapRequest {
+  SetTreeMap: SetTreeMap;
+}
+export interface SetTreeMapResponse {
+  SetTreeMapResult: SetTreeMapResult;
+}
+export interface GetMapChartRequest {
+  GetMapChart: GetMapChart;
+}
+export interface GetMapChartResponse {
+  GetMapChartResult: GetMapChartResult;
+}
+export interface SetMapChartRequest {
+  SetMapChart: SetMapChart;
+}
+export interface SetMapChartResponse {
+  SetMapChartResult: SetMapChartResult;
+}
+export interface GetBubbleChartRequest {
+  GetBubbleChart: GetBubbleChart;
+}
+export interface GetBubbleChartResponse {
+  GetBubbleChartResult: GetBubbleChartResult;
+}
+export interface SetBubbleChartRequest {
+  SetBubbleChart: SetBubbleChart;
+}
+export interface SetBubbleChartResponse {
+  SetBubbleChartResult: SetBubbleChartResult;
+}
+export interface OpenAdHocRequest {
+  OpenAdHoc: OpenAdHoc;
+}
+export interface OpenAdHocResponse {
+  OpenAdHocResult: OpenAdHocResult;
+}
+export interface GetAdHocRequest {
+  GetAdHoc: GetAdHoc;
+}
+export interface GetAdHocResponse {
+  GetAdHocResult: GetAdHocResult;
+}
+export interface SetAdHocRequest {
+  SetAdHoc: SetAdHoc;
+}
+export interface SetAdHocResponse {
+  SetAdHocResult: SetAdHocResult;
+}
+export interface CloseAdHocRequest {
+  CloseAdHoc: CloseAdHoc;
+}
+export interface CloseAdHocResponse {
+  CloseAdHocResult: CloseAdHocResult;
+}
+export interface OpenMsRequest {
+  OpenMs: OpenMs;
+}
+export interface OpenMsResponse {
+  OpenMsResult: OpenMsResult;
+}
+export interface CloseMsRequest {
+  CloseMs: CloseMs;
+}
+export interface CloseMsResponse {
+  CloseMsResult: CloseMsResult;
+}
+export interface CalcMsRequest {
+  CalcMs: CalcMs;
+}
+export interface CalcMsResponse {
+  CalcMsResult: CalcMsResult;
+}
+export interface GetMsRequest {
+  GetMs: GetMs;
+}
+export interface GetMsResponse {
+  GetMsResult: GetMsResult;
+}
+export interface SetMsRequest {
+  SetMs: SetMs;
+}
+export interface SetMsResponse {
+  SetMsResult: SetMsResult;
+}
+export interface GetDmRequest {
+  GetDm: GetDm;
+}
+export interface GetDmResponse {
+  GetDmResult: GetDmResult;
+}
+export interface GetDmDataSourceRequest {
+  GetDmDataSource: GetDmDataSource;
+}
+export interface GetDmDataSourceResponse {
+  GetDmDataSourceResult: GetDmDataSourceResult;
+}
+export interface GetFormulaEditorInfoRequest {
+  GetFormulaEditorInfo: GetFormulaEditorInfo;
+}
+export interface GetFormulaEditorInfoResponse {
+  GetFormulaEditorInfoResult: GetFormulaEditorInfoResult;
+}
+export interface SetFormulaEditorInfoRequest {
+  SetFormulaEditorInfo: SetFormulaEditorInfo;
+}
+export interface SetFormulaEditorInfoResponse {
+  SetFormulaEditorInfoResult: SetFormulaEditorInfoResult;
+}
+export interface GetTreeElementsRequest {
+  GetTreeElements: GetTreeElements;
+}
+export interface GetTreeElementsResponse {
+  GetTreeElementsResult: GetTreeElementsResult;
+}
+export interface GetBinaryRequest {
+  GetBinary: GetBinary;
+}
+export interface GetBinaryResponse {
+  GetBinaryResult: GetBinaryResult;
+}
+export interface GetBinRequest {
+  GetBin: GetBin;
+}
+export interface GetBinResponse {
+  GetBinResult: GetBinResult;
+}
+export interface PutBinaryRequest {
+  PutBinary: PutBinary;
+}
+export interface PutBinaryResponse {
+  PutBinaryResult: PutBinaryResult;
+}
+export interface PutBinRequest {
+  PutBin: PutBin;
+}
+export interface PutBinResponse {
+  PutBinResult: PutBinResult;
+}
+export interface BatchExecRequest {
+  BatchExec: BatchExec;
+}
+export interface BatchExecResponse {
+  BatchExecResult: BatchExecResult;
+}
+export interface ForeExecRequest {
+  ForeExec: ForeExec;
+}
+export interface ForeExecResponse {
+  ForeExecResult: ForeExecResult;
+}
+export interface SetExpRequest {
+  SetExp: SetExp;
+}
+export interface SetExpResponse {
+  SetExpResult: SetExpResult;
+}
+export interface GetSearchRequest {
+  GetSearch: GetSearch;
+}
+export interface GetSearchResponse {
+  GetSearchResult: GetSearchResult;
+}
+export interface OpenDtbDalRequest {
+  OpenDtbDal: OpenDtbDal;
+}
+export interface OpenDtbDalResponse {
+  OpenDtbDalResult: OpenDtbDalResult;
+}
+export interface ExecDtbDalRequest {
+  ExecDtbDal: ExecDtbDal;
+}
+export interface ExecDtbDalResponse {
+  ExecDtbDalResult: ExecDtbDalResult;
+}
+export interface CloseDtbDalRequest {
+  CloseDtbDal: CloseDtbDal;
+}
+export interface CloseDtbDalResponse {
+  CloseDtbDalResult: CloseDtbDalResult;
+}
+export interface GetTopobaseRequest {
+  GetTopobase: GetTopobase;
+}
+export interface GetTopobaseResponse {
+  GetTopobaseResult: GetTopobaseResult;
+}
+export interface OpenStyleSheetRequest {
+  OpenStyleSheet: OpenStyleSheet;
+}
+export interface OpenStyleSheetResponse {
+  OpenStyleSheetResult: OpenStyleSheetResult;
+}
+export interface GetStyleSheetRequest {
+  GetStyleSheet: GetStyleSheet;
+}
+export interface GetStyleSheetResponse {
+  GetStyleSheetResult: GetStyleSheetResult;
+}
+export interface CopyStyleSheetRequest {
+  CopyStyleSheet: CopyStyleSheet;
+}
+export interface CopyStyleSheetResponse {
+  CopyStyleSheetResult: CopyStyleSheetResult;
+}
+export interface PvtExecuteRequest {
+  PvtExecute: PvtExecute;
+}
+export interface PvtExecuteResponse {
+  PvtExecuteResult: PvtExecuteResult;
+}
+export interface PvtChangeValueRequest {
+  PvtChangeValue: PvtChangeValue;
+}
+export interface PvtChangeValueResponse {
+  PvtChangeValueResult: PvtChangeValueResult;
+}
+export interface PvtCloseRequest {
+  PvtClose: PvtClose;
+}
+export interface PvtCloseResponse {
+  PvtCloseResult: PvtCloseResult;
+}
+export interface PvtPostRequest {
+  PvtPost: PvtPost;
+}
+export interface PvtPostResponse {
+  PvtPostResult: PvtPostResult;
+}
+export interface PvtCancelRequest {
+  PvtCancel: PvtCancel;
+}
+export interface PvtCancelResponse {
+  PvtCancelResult: PvtCancelResult;
+}
+export type SomRequest = 
+  GetStatusRequest |
+  GetSvcRequest |
+  SetSvcRequest |
+  OpenMetabaseRequest |
+  CloseMetabaseRequest |
+  UpdateUPCRequest |
+  GetOAuthTokenRequest |
+  GetSAMLRequestRequest |
+  GetVerifierCodeRequest |
+  GetObjectsRequest |
+  SaveObjectRequest |
+  SetObjectRequest |
+  SaveObjectAsRequest |
+  CreateObjectRequest |
+  CopyObjectRequest |
+  MoveObjectRequest |
+  DeleteObjectsRequest |
+  GetRawMdRequest |
+  SetRawMdRequest |
+  CloseObjectRequest |
+  GetMbSecRequest |
+  SetMbSecRequest |
+  GetSessionsRequest |
+  DisconnectSessionsRequest |
+  CheckAuditLoginRequest |
+  GetSubjectMemberOfRequest |
+  SubjectsSearchRequest |
+  LookupSubjectInfoRequest |
+  GetMbDrvsRequest |
+  ExportMbSubjectsRequest |
+  OpenMbSecSnapshotRequest |
+  CloseMbSecSnapshotRequest |
+  GetMbSecSnapshotRequest |
+  SetMbSecSnapshotRequest |
+  OpenAuditLogRequest |
+  GetAuditLogRequest |
+  GetAuditLogMdRequest |
+  SetAuditLogMdRequest |
+  CloseAuditLogRequest |
+  ShareRequest |
+  OpenCustomObRequest |
+  CloseCustomObRequest |
+  GetCustomObRequest |
+  SetCustomObRequest |
+  OpenMbUpdateRequest |
+  CloseMbUpdateRequest |
+  GetMbUpdateRequest |
+  SetMbUpdateRequest |
+  OpenMbLicenseRequest |
+  CloseMbLicenseRequest |
+  OpenDimRequest |
+  CloseDimRequest |
+  GetDimElementsRequest |
+  GetDimMetadataRequest |
+  ChangeDimSelectionRequest |
+  OpenEaxRequest |
+  CloseEaxRequest |
+  GetEaxMdRequest |
+  SetEaxMdRequest |
+  OpenScorecardRequest |
+  CloseScorecardRequest |
+  GetScorecardMdRequest |
+  SetScorecardMdRequest |
+  OpenDbCommandRequest |
+  CloseDbCommandRequest |
+  GetDbCommandRequest |
+  SetDbCommandRequest |
+  OpenRdsRequest |
+  OpenRdsParamsRequest |
+  CloseParamValuesRequest |
+  CloseRdsRequest |
+  GetRdsRequest |
+  SetRdsRequest |
+  GetRdsElementsRequest |
+  SetRdsElementsRequest |
+  OpenCubeRequest |
+  CloseCubeRequest |
+  GetCubeRequest |
+  SetCubeRequest |
+  OpenResourceRequest |
+  CloseResourceRequest |
+  GetResourceRequest |
+  SetResourceRequest |
+  OpenRubRequest |
+  CloseRubRequest |
+  GetRubMdRequest |
+  OpenCubeImportRequest |
+  CloseCubeImportRequest |
+  GetCubeImportRequest |
+  SetCubeImportRequest |
+  OpenHieRequest |
+  CloseHieRequest |
+  GetHieMdRequest |
+  SetHieMdRequest |
+  GetHieMembersRequest |
+  OpenVfRequest |
+  CloseVfRequest |
+  GetVfMdRequest |
+  SetVfMdRequest |
+  OpenWbkRequest |
+  CloseWbkRequest |
+  GetWbkMdRequest |
+  SetWbkMdRequest |
+  OpenWspRequest |
+  CloseWspRequest |
+  GetWspMdRequest |
+  SetWspMdRequest |
+  OpenSchedulerRequest |
+  CloseSchedulerRequest |
+  GetSchedulerRequest |
+  SetSchedulerRequest |
+  OpenEtlRequest |
+  CloseEtlRequest |
+  GetEtlRequest |
+  SetEtlRequest |
+  GetTabSheetDataRequest |
+  SetTabSheetDataRequest |
+  GetDocumentDataRequest |
+  OpenPrxRequest |
+  GetPrxMdRequest |
+  SetPrxMdRequest |
+  ClosePrxRequest |
+  GetChartRequest |
+  SetChartRequest |
+  GetDefaultChartRequest |
+  GetChartStyleRequest |
+  GetMapRequest |
+  SetMapRequest |
+  GetSpeedometerRequest |
+  SetSpeedometerRequest |
+  GetBubbleTreeRequest |
+  SetBubbleTreeRequest |
+  GetTreeMapRequest |
+  SetTreeMapRequest |
+  GetMapChartRequest |
+  SetMapChartRequest |
+  GetBubbleChartRequest |
+  SetBubbleChartRequest |
+  OpenAdHocRequest |
+  GetAdHocRequest |
+  SetAdHocRequest |
+  CloseAdHocRequest |
+  OpenMsRequest |
+  CloseMsRequest |
+  CalcMsRequest |
+  GetMsRequest |
+  SetMsRequest |
+  GetDmRequest |
+  GetDmDataSourceRequest |
+  GetFormulaEditorInfoRequest |
+  SetFormulaEditorInfoRequest |
+  GetTreeElementsRequest |
+  GetBinaryRequest |
+  GetBinRequest |
+  PutBinaryRequest |
+  PutBinRequest |
+  BatchExecRequest |
+  ForeExecRequest |
+  SetExpRequest |
+  GetSearchRequest |
+  OpenDtbDalRequest |
+  ExecDtbDalRequest |
+  CloseDtbDalRequest |
+  GetTopobaseRequest |
+  OpenStyleSheetRequest |
+  GetStyleSheetRequest |
+  CopyStyleSheetRequest |
+  PvtExecuteRequest |
+  PvtChangeValueRequest |
+  PvtCloseRequest |
+  PvtPostRequest |
+  PvtCancelRequest;
+export type SomResponse = 
+  GetStatusResponse |
+  GetSvcResponse |
+  SetSvcResponse |
+  OpenMetabaseResponse |
+  CloseMetabaseResponse |
+  UpdateUPCResponse |
+  GetOAuthTokenResponse |
+  GetSAMLRequestResponse |
+  GetVerifierCodeResponse |
+  GetObjectsResponse |
+  SaveObjectResponse |
+  SetObjectResponse |
+  SaveObjectAsResponse |
+  CreateObjectResponse |
+  CopyObjectResponse |
+  MoveObjectResponse |
+  DeleteObjectsResponse |
+  GetRawMdResponse |
+  SetRawMdResponse |
+  CloseObjectResponse |
+  GetMbSecResponse |
+  SetMbSecResponse |
+  GetSessionsResponse |
+  DisconnectSessionsResponse |
+  CheckAuditLoginResponse |
+  GetSubjectMemberOfResponse |
+  SubjectsSearchResponse |
+  LookupSubjectInfoResponse |
+  GetMbDrvsResponse |
+  ExportMbSubjectsResponse |
+  OpenMbSecSnapshotResponse |
+  CloseMbSecSnapshotResponse |
+  GetMbSecSnapshotResponse |
+  SetMbSecSnapshotResponse |
+  OpenAuditLogResponse |
+  GetAuditLogResponse |
+  GetAuditLogMdResponse |
+  SetAuditLogMdResponse |
+  CloseAuditLogResponse |
+  ShareResponse |
+  OpenCustomObResponse |
+  CloseCustomObResponse |
+  GetCustomObResponse |
+  SetCustomObResponse |
+  OpenMbUpdateResponse |
+  CloseMbUpdateResponse |
+  GetMbUpdateResponse |
+  SetMbUpdateResponse |
+  OpenMbLicenseResponse |
+  CloseMbLicenseResponse |
+  OpenDimResponse |
+  CloseDimResponse |
+  GetDimElementsResponse |
+  GetDimMetadataResponse |
+  ChangeDimSelectionResponse |
+  OpenEaxResponse |
+  CloseEaxResponse |
+  GetEaxMdResponse |
+  SetEaxMdResponse |
+  OpenScorecardResponse |
+  CloseScorecardResponse |
+  GetScorecardMdResponse |
+  SetScorecardMdResponse |
+  OpenDbCommandResponse |
+  CloseDbCommandResponse |
+  GetDbCommandResponse |
+  SetDbCommandResponse |
+  OpenRdsResponse |
+  OpenRdsParamsResponse |
+  CloseParamValuesResponse |
+  CloseRdsResponse |
+  GetRdsResponse |
+  SetRdsResponse |
+  GetRdsElementsResponse |
+  SetRdsElementsResponse |
+  OpenCubeResponse |
+  CloseCubeResponse |
+  GetCubeResponse |
+  SetCubeResponse |
+  OpenResourceResponse |
+  CloseResourceResponse |
+  GetResourceResponse |
+  SetResourceResponse |
+  OpenRubResponse |
+  CloseRubResponse |
+  GetRubMdResponse |
+  OpenCubeImportResponse |
+  CloseCubeImportResponse |
+  GetCubeImportResponse |
+  SetCubeImportResponse |
+  OpenHieResponse |
+  CloseHieResponse |
+  GetHieMdResponse |
+  SetHieMdResponse |
+  GetHieMembersResponse |
+  OpenVfResponse |
+  CloseVfResponse |
+  GetVfMdResponse |
+  SetVfMdResponse |
+  OpenWbkResponse |
+  CloseWbkResponse |
+  GetWbkMdResponse |
+  SetWbkMdResponse |
+  OpenWspResponse |
+  CloseWspResponse |
+  GetWspMdResponse |
+  SetWspMdResponse |
+  OpenSchedulerResponse |
+  CloseSchedulerResponse |
+  GetSchedulerResponse |
+  SetSchedulerResponse |
+  OpenEtlResponse |
+  CloseEtlResponse |
+  GetEtlResponse |
+  SetEtlResponse |
+  GetTabSheetDataResponse |
+  SetTabSheetDataResponse |
+  GetDocumentDataResponse |
+  OpenPrxResponse |
+  GetPrxMdResponse |
+  SetPrxMdResponse |
+  ClosePrxResponse |
+  GetChartResponse |
+  SetChartResponse |
+  GetDefaultChartResponse |
+  GetChartStyleResponse |
+  GetMapResponse |
+  SetMapResponse |
+  GetSpeedometerResponse |
+  SetSpeedometerResponse |
+  GetBubbleTreeResponse |
+  SetBubbleTreeResponse |
+  GetTreeMapResponse |
+  SetTreeMapResponse |
+  GetMapChartResponse |
+  SetMapChartResponse |
+  GetBubbleChartResponse |
+  SetBubbleChartResponse |
+  OpenAdHocResponse |
+  GetAdHocResponse |
+  SetAdHocResponse |
+  CloseAdHocResponse |
+  OpenMsResponse |
+  CloseMsResponse |
+  CalcMsResponse |
+  GetMsResponse |
+  SetMsResponse |
+  GetDmResponse |
+  GetDmDataSourceResponse |
+  GetFormulaEditorInfoResponse |
+  SetFormulaEditorInfoResponse |
+  GetTreeElementsResponse |
+  GetBinaryResponse |
+  GetBinResponse |
+  PutBinaryResponse |
+  PutBinResponse |
+  BatchExecResponse |
+  ForeExecResponse |
+  SetExpResponse |
+  GetSearchResponse |
+  OpenDtbDalResponse |
+  ExecDtbDalResponse |
+  CloseDtbDalResponse |
+  GetTopobaseResponse |
+  OpenStyleSheetResponse |
+  GetStyleSheetResponse |
+  CopyStyleSheetResponse |
+  PvtExecuteResponse |
+  PvtChangeValueResponse |
+  PvtCloseResponse |
+  PvtPostResponse |
+  PvtCancelResponse;

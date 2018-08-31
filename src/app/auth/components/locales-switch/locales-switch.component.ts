@@ -14,4 +14,18 @@ export class LocalesSwitchComponent {
   selectedLang: string;
 
   locales = PredefinedLocales;
+
+  get extraLangs(): string[] {
+    return this.langList
+            .filter(lng => lng !== this.selectedLang)
+            .slice(0, 3);
+  }
+
+  get hiddenLangs(): string[] {
+    return this.langList
+            .filter(lng => lng !== this.selectedLang)
+            .slice(3);
+  }
+
+  constructor() {}
 }

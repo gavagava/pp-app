@@ -1,0 +1,23 @@
+<a class="pp-locales-switch__lang pp-locales-switch__lang_active"
+  [routerLink]="['/login']"
+  [queryParams]="{locale: selectedLang}"
+  queryParamsHandling="merge">{{locales[selectedLang].name}}</a>
+<a *ngFor="let lang of extraLangs as langs"
+  class="pp-locales-switch__lang"
+  [routerLink]="['/login']"
+  [queryParams]="{locale: lang}"
+  queryParamsHandling="merge">
+  {{locales[lang].name}}
+</a>
+<span class="pp-locales-switch__menu-btn"
+      *ngIf="hiddenLangs.length > 0"
+      [matMenuTriggerFor]="langMenu">^</span>
+<mat-menu #langMenu="matMenu">
+  <a *ngFor="let lang of hiddenLangs as langs"
+      class="pp-locales-switch__lang pp-locales-switch__menu-itm"
+      [routerLink]="['/login']"
+      [queryParams]="{locale: lang}"
+      queryParamsHandling="merge">
+      {{locales[lang].name}}
+  </a>
+</mat-menu>

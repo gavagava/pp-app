@@ -1,9 +1,9 @@
-export interface AuthenticateBase {
+export interface IAuthenticateBase {
   metabaseId: string;
   locale?: string;
 }
 
-export interface PasswordAuthenticate extends AuthenticateBase {
+export interface IPasswordAuthenticate extends IAuthenticateBase {
   username: string;
   password: string;
 }

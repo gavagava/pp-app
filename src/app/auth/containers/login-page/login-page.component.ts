@@ -3,7 +3,7 @@ import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { APP_VERSION } from '../../../shared/version';
 import * as Auth from '../../actions/auth';
-import { PasswordAuthenticate } from '../../models/authenticate';
+import { IPasswordAuthenticate } from '../../models/authenticate';
 import * as fromAuth from '../../reducers';
 import * as fromRoot from '../../../reducers';
 import { APP_CONFIG, IAppConfig } from '../../../config/app.config';
@@ -32,7 +32,7 @@ export class LoginPageComponent implements OnInit {
     this.langs = this.config.localesList || [];
   }
 
-  onSubmit($event: PasswordAuthenticate) {
+  onSubmit($event: IPasswordAuthenticate) {
     this.store.dispatch(new Auth.Login($event));
   }
 }

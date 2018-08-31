@@ -1,4 +1,4 @@
-import { User } from './user.model';
+import { IUser } from './user.model';
 
 export class Session {
   // Последняя проверка состояния сессии
@@ -10,7 +10,7 @@ export class Session {
    * @param {string} [metabaseId=null] Идентификатор метабазы
    * @param {string} [sessionCookie=null] Куки
    * @param {number} [locale=null] lcid сессии
-   * @param {User} [user=null] Пользователь, для которого открыта сессия
+   * @param {IUser} [user=null] Пользователь, для которого открыта сессия
    * @memberof Session
    */
   constructor (
@@ -18,7 +18,7 @@ export class Session {
     public metabaseId: string = null,
     public sessionCookie: string = null,
     public locale: number = null,
-    public user: User = null
+    public user: IUser = null
   ) {}
 
   get isOpened(): boolean {

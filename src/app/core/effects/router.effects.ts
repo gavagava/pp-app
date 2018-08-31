@@ -12,10 +12,10 @@ import { APP_CONFIG, IAppConfig } from '../../config/app.config';
 
 @Injectable()
 export class RouterEffects {
-  @Effect()
+  @Effect({ dispatch: false })
   navigate$ = this.actions$.pipe(
     ofType(ROUTER_NAVIGATION),
-    map((action: RouterNavigationAction<RouterStateUrl>) => action.payload),
+    map((action: RouterNavigationAction<RouterStateUrl>) => action.payload.routerState),
     tap((routerState: RouterStateUrl) => {
       const queryLang = _.get(routerState.queryParams, 'locale');
       const langList = this.config.localesList || [];
@@ -30,7 +30,7 @@ export class RouterEffects {
           defaultLang = langList[0];
         }
 
-        this.router.navigateByUrl(routerState.url, { queryParams: { locale: defaultLang } });
+        this.router.navigate(['/login'], { queryParams: { locale: defaultLang } });
       } else {
         this.translate.use(queryLang);
       }

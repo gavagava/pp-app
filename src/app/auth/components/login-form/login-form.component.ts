@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 
-import { PasswordAuthenticate } from '../../models/authenticate';
+import { IPasswordAuthenticate } from '../../models/authenticate';
 
 @Component({
   selector: 'pp-login-form',
@@ -18,7 +18,7 @@ export class LoginFormComponent implements OnInit {
     }
   }
 
-  @Output() submitted = new EventEmitter<PasswordAuthenticate>();
+  @Output() submitted = new EventEmitter<IPasswordAuthenticate>();
 
   form: FormGroup = new FormGroup({
     username: new FormControl(''),
