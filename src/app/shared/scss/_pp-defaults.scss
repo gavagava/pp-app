@@ -1,0 +1,24 @@
+html {
+  height: 100%;
+}
+
+.pp-body {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+
+  &_default {
+    font-family: $pp-font-family;
+    font-size: $pp-font-size;
+  }
+
+  &_mac {
+    font-family: $pp-mac-font-family;
+    font-size: $pp-mac-font-size;
+  }
+
+  &_nix {
+    font-family: $pp-nix-font-family;
+    font-size: $pp-nix-font-size;
+  }
+}

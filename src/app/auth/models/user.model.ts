@@ -1,4 +1,4 @@
-import { MbUserLockedState, MbAutoRun, MbSecPredefinedPrivilege, LicenseFeatureType } from '../../som/som';
+import { MbUserLockedState, MbAutoRun, MbSecPredefinedPrivilege, LicenseFeatureType } from '../../shared/som';
 
 export interface IMetabaseUserSecurityInfo {
   mustChangePasswordAtNextLogon?: boolean;

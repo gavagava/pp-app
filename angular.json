@@ -17,6 +17,11 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/app/shared/scss"
+              ]
+            },
             "outputPath": "dist/pp-app",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -135,6 +140,11 @@
       "sourceRoot": "projects/pp-components-lib/src",
       "projectType": "library",
       "prefix": "pp",
+      "schematics": {
+        "@schematics/angular:component": {
+          "styleext": "scss"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",

@@ -30,7 +30,10 @@ export class RouterEffects {
           defaultLang = langList[0];
         }
 
-        this.router.navigate(['/login'], { queryParams: { locale: defaultLang } });
+        this.router.navigate(
+          [routerState.url],
+          { queryParams: _.merge({}, routerState.queryParams, { locale: defaultLang }) }
+        );
       } else {
         this.translate.use(queryLang);
       }

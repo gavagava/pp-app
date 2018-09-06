@@ -1,9 +1,13 @@
-.pp-logo__image {
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
+.pp-logo {
+  &__image {
+    background-position: right;
+    background-repeat: no-repeat;
+    background-image: url('/assets/auth/login-page/logo.png');
+    height: 96px;
+    width: 250px;
+  }
 
-.pp-logo__version {
-  text-align: right;
+  &__version {
+    text-align: right;
+  }
 }

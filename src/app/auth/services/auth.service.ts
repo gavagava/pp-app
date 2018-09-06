@@ -13,7 +13,7 @@ import {
   GetSvcResponse,
   GetMbSecRequest,
   GetMbSecResponse
-} from '../../som/som';
+} from '../../shared/som';
 import { LicenseFeatures, Privileges, IMetabaseUser } from '../models/user.model';
 
 

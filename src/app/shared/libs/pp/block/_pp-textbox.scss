@@ -1,0 +1,10 @@
+.pp-textbox {
+  @include pp-font-accessories;
+  font-family: inherit;
+  font-size: inherit;
+  border: 1px solid $pp-border-color;
+  border-radius: 3px;
+  &:focus {
+    outline: none;
+  }
+}

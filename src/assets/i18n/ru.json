@@ -1,6 +1,7 @@
 {
   "LOGIN_FORM": {
     "USERNAME": "Имя пользователя:",
-    "PASSWORD": "Пароль:"
+    "PASSWORD": "Пароль:",
+    "SUBMIT": "Войти"
   }
 }

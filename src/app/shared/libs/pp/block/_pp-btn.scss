@@ -1,0 +1,20 @@
+.pp-btn {
+  overflow: hidden;
+  padding: 2px;
+  cursor: default;
+  text-align: center;
+  white-space: normal;
+  outline: none;
+  background-color: $pp-btn-background-color;
+  border-style: solid;
+  border-color: $pp-border-color;
+  border-width: 1px;
+  border-radius: 3px;
+  font-size: inherit;
+  font-family: inherit;
+  @include pp-font-accessories;
+
+  &:hover {
+    border-color: $pp-border-color_dark;
+  }
+}

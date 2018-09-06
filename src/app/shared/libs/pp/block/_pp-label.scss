@@ -1,0 +1,7 @@
+.pp-label {
+  @include pp-font-accessories;
+  outline: none;
+  cursor: default;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}

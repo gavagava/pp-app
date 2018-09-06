@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'pp-variables';
+@import 'pp-mixins';
+@import 'pp-defaults';
+
+// Импортируем блоки
+@import 'block/pp-body';
+@import 'block/pp-label';
+@import 'block/pp-btn';
+@import 'block/pp-textbox';

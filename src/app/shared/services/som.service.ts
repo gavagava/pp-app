@@ -4,7 +4,7 @@ import { Observable, PartialObserver, Subject } from 'rxjs';
 import { bufferTime, find } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { APP_CONFIG, IAppConfig } from '../../config/app.config';
-import { BatchExecRequest, BatchExecResponse, SomRequest, SomResponse } from '../../som/som';
+import { BatchExecRequest, BatchExecResponse, SomRequest, SomResponse } from '../som';
 
 export interface ISomRequest<T extends SomRequest = SomRequest> {
   body: T;

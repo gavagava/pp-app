@@ -6,7 +6,7 @@ import { IPasswordAuthenticate } from '../../models/authenticate';
 @Component({
   selector: 'pp-login-form',
   templateUrl: 'login-form.template.html',
-  styleUrls: []
+  styleUrls: ['./login-form.scss']
 })
 export class LoginFormComponent implements OnInit {
   @Input()
