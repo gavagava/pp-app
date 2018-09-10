@@ -19,7 +19,7 @@
           "options": {
             "stylePreprocessorOptions": {
               "includePaths": [
-                "src/app/shared/scss"
+                "src/styles"
               ]
             },
             "outputPath": "dist/pp-app",
